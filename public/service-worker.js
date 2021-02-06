@@ -22,7 +22,7 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
-  const currentCaches = [PRECACHE, RUNTIME];
+  const currentCaches = [CACHE_NAME, DATA_CACHE_NAME];
   event.waitUntil(
     caches
       .keys()
@@ -40,4 +40,26 @@ self.addEventListener('activate', (event) => {
       })
       .then(() => self.clients.claim())
   );
+});
+
+//Need to alter this further
+
+self.addEventListener('fetch', (event) => {
+  if (event.request.url.startsWith(self.location.origin)) {
+    event.respondWith(
+      caches.match(event.request).then((cachedResponse) => {
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+
+        return caches.open(DATA_CACHE_NAME).then((cache) => {
+          return fetch(event.request).then((response) => {
+            return cache.put(event.request, response.clone()).then(() => {
+              return response;
+            });
+          });
+        });
+      })
+    );
+  }
 });
