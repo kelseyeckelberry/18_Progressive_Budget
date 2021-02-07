@@ -49,3 +49,5 @@ getAll.onsuccess = function () {
       });
   }
 };
+
+window.addEventListener('online', checkDatabase);
