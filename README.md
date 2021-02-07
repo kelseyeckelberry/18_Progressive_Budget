@@ -33,10 +33,9 @@ npm i
 
 Visit the website (linked below) and start tracking your budget!
 
-link
+https://protected-wildwood-05521.herokuapp.com/
 
-![ScreenShot](./public/images/...png)
-![ScreenShot](./public/images/...png)
+![ScreenShot](./public/images/budget.png)
 
 ## Technology Used
 
